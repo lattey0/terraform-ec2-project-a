@@ -1,9 +1,10 @@
-name: Terraform CI - Dev Checks
+name: Terraform CI Checks
 
 on:
+  push:
+    branches: [dev]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   id-token: write
@@ -12,8 +13,8 @@ permissions:
 
 jobs:
   terraform:
-    name: Terraform Quality Checks
     runs-on: ubuntu-latest
+    name: Terraform Scan and Plan
 
     steps:
       - name: Checkout code
@@ -56,16 +57,20 @@ jobs:
       - name: Terraform Security Scan
         run: tfsec . || true
 
+      # Only run Terraform Plan and upload artifact during PRs
       - name: Terraform Plan
+        if: github.event_name == 'pull_request'
         run: terraform plan -out=tfplan.binary
 
       - name: Upload Plan Artifact
+        if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
           path: tfplan.binary
 
       - name: Comment Terraform Plan
+        if: github.event_name == 'pull_request'
         uses: GetTerminus/terraform-pr-commenter@v4
         with:
           plan-path: tfplan.binary
