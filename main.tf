@@ -9,10 +9,11 @@ terraform {
   required_version = ">= 1.3.0"
 
   backend "s3" {
-    bucket = "asutosh-project-a-tf-state"
-    key    = "ec2/terraform.tfstate"
-    region = "us-east-1"
-  }
+  bucket = "adhikari-bucket0"
+  key    = "ec2/terraform.tfstate"
+  region = "us-east-1"
+}
+
 }
 
 
