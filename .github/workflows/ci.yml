@@ -78,7 +78,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: GetTerminus/terraform-pr-commenter@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commenter_type: plan
-          commenter_input: ${{ steps.read_plan.outputs.plan_summary || 'Terraform plan not available.' }}
+          plan-path: tfplan.binary
+
