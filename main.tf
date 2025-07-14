@@ -53,7 +53,7 @@ resource "aws_iam_role_policy" "asutosh_s3_write" {
         Effect   = "Allow",
         Action   = ["s3:PutObject"],
         Resource = "arn:aws:s3:::terminus-bucket-123/*"
-      }
+      } 
     ]
   })
 }
