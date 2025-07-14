@@ -74,13 +74,6 @@ jobs:
           name: tfplan
           path: tfplan.binary
 
-      # - name: Comment Terraform Plan
-      #   if: github.event_name == 'pull_request'
-      #   uses: GetTerminus/terraform-pr-commenter@v1.3.2
-      #   with:
-      #     plan-path: tfplan.binary
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Comment Terraform Plan
         if: always()
         uses: GetTerminus/terraform-pr-commenter@v1
