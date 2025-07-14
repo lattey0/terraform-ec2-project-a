@@ -45,8 +45,13 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Format
-        run: terraform fmt -check -recursive
+      - name: Terraform Format Check
+        run: |
+          terraform fmt -check -recursive || (
+            echo " Terraform files are not formatted correctly. Run 'terraform fmt -recursive' to fix."; 
+            exit 1;
+          )
+
 
       - name: Terraform Validate
         run: terraform validate
@@ -84,4 +89,3 @@ jobs:
         with:
           commenter_type: plan
           commenter_input: ${{ steps.read_plan.outputs.plan_summary || 'Terraform plan not available.' }}
-          
