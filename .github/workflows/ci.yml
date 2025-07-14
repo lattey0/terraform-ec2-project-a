@@ -75,15 +75,6 @@ jobs:
           name: tfplan
           path: tfplan.binary
 
-      - name: Read Plan Output
-        if: github.event_name == 'pull_request'
-        id: read_plan
-        run: |
-          echo "COMMENTER_INPUT<<EOF" >> $GITHUB_ENV
-          head -c 65000 plan.txt >> $GITHUB_ENV
-          echo -e "\nEOF" >> $GITHUB_ENV
-
-
       - name: Read and Export Plan
         if: github.event_name == 'pull_request'
         id: export_plan
