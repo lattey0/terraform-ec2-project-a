@@ -76,12 +76,12 @@ jobs:
           path: tfplan.binary
 
       - name: Read and Export Plan
-  if: github.event_name == 'pull_request'
-  id: export_plan
-  run: |
-    echo "COMMENTER_INPUT<<EOF" >> $GITHUB_ENV
-    head -c 65000 plan.txt >> $GITHUB_ENV
-    echo "EOF" >> $GITHUB_ENV
+        if: github.event_name == 'pull_request'
+        id: export_plan
+        run: |
+          echo "COMMENTER_INPUT<<EOF" >> $GITHUB_ENV
+          head -c 65000 plan.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
 
       - name: Comment Terraform Plan
