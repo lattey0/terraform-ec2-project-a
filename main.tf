@@ -9,16 +9,16 @@ terraform {
   required_version = ">= 1.3.0"
 
   backend "s3" {
-  bucket = "adhikari-bucket0"
-  key    = "ec2/terraform.tfstate"
-  region = "us-east-1"
-}
+    bucket = "adhikari-bucket0"
+    key    = "ec2/terraform.tfstate"
+    region = "us-east-1"
+  }
 
 }
 
 
 provider "aws" {
-  region     = "us-east-1"
+  region = "us-east-1"
 }
 
 resource "aws_iam_role" "asutoshrole" {
@@ -36,7 +36,7 @@ resource "aws_iam_role" "asutoshrole" {
       }
     ]
   })
-  
+
 
   tags = {
     Creator = "asutosh"
@@ -54,7 +54,7 @@ resource "aws_iam_role_policy" "asutosh_s3_write" {
         Effect   = "Allow",
         Action   = ["s3:PutObject"],
         Resource = "arn:aws:s3:::terminus-bucket-123/*"
-      } 
+      }
     ]
   })
 }
@@ -78,7 +78,7 @@ resource "aws_instance" "terminus_ec2" {
     http_tokens = "required"
   }
 
-  
+
   root_block_device {
     encrypted = true
   }
