@@ -83,6 +83,16 @@ jobs:
           head -c 65000 plan.txt >> $GITHUB_ENV
           echo -e "\nEOF" >> $GITHUB_ENV
 
+
+      - name: Read and Export Plan
+        if: github.event_name == 'pull_request'
+        id: export_plan
+        run: |
+          # Read the first 65000 characters from plan.txt and export as env variable
+          echo "COMMENTER_INPUT<<EOF" >> $GITHUB_ENV
+          head -c 65000 plan.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Comment Terraform Plan
         if: github.event_name == 'pull_request'
         uses: GetTerminus/terraform-pr-commenter@v1
